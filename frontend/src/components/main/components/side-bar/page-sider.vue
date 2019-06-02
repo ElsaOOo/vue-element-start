@@ -1,5 +1,5 @@
 <template>
- <el-aside width="200px"
+ <el-aside :width="isCollapse ? '78px' : '200px'"
   style="background-color: #545c64">
   <slot></slot>
   <el-menu default-active="1-1"
@@ -23,7 +23,7 @@
     <el-menu-item index="4">
       <i class="el-icon-setting"></i>
       <span slot="title">导航四</span>
-    </el-menu-item>`
+    </el-menu-item>
   </el-menu>
  </el-aside>
 </template>
@@ -49,7 +49,7 @@ export default {
   methods: {},
   mounted() {
     EventBus.$on('collapseChange', (isCollapsed) => {
-      this.isCollapsed = isCollapsed;
+      this.isCollapse = isCollapsed;
     });
   },
 };

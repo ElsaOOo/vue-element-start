@@ -11,6 +11,7 @@ export default new Router({
       path: '/',
       name: 'home',
       redirect: '/home',
+      component: () => import('@/components/main'),
       children: [
         {
           path: '/home',
@@ -18,6 +19,16 @@ export default new Router({
           component: () => import('@/views/Home.vue'),
         },
       ],
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login.vue'),
+    },
+    {
+      path: '*',
+      name: '404',
+      component: () => import('@/views/NotFound.vue'),
     },
   ],
 });

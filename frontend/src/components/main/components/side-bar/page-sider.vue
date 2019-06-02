@@ -1,10 +1,14 @@
 <template>
  <el-aside width="200px"
-  style="background-color: rgb(238, 241, 246)">
-   <el-menu default-active="1-1"
-    class="el-menu-vertical-demo"
+  style="background-color: #545c64">
+  <slot></slot>
+  <el-menu default-active="1-1"
+    class="side-menu-wrapper side-menu"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
     :collapse="isCollapse">
-    <el-submenu index="1">
+   <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span slot="title">导航一</span>
@@ -16,30 +20,40 @@
       <i class="el-icon-menu"></i>
       <span slot="title">导航二</span>
     </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <i class="el-icon-document"></i>
-      <span slot="title">导航三</span>
-    </el-menu-item>
     <el-menu-item index="4">
       <i class="el-icon-setting"></i>
       <span slot="title">导航四</span>
-    </el-menu-item>
+    </el-menu-item>`
   </el-menu>
  </el-aside>
 </template>
 
 <script>
+import EventBus from '@/utils/event-bus';
+
 export default {
   name: 'PageSiders',
+  props: {
+    menuList: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   data() {
     return {
       isCollapse: false,
     };
   },
   methods: {},
+  mounted() {
+    EventBus.$on('collapseChange', (isCollapsed) => {
+      this.isCollapsed = isCollapsed;
+    });
+  },
 };
 </script>
 <style lang="less" scoped>
-
-
+@import './side-menu.less';
 </style>

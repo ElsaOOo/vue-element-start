@@ -9,6 +9,7 @@
 
 <script>
 import EventBus from '@/utils/event-bus';
+import { throttle } from '@/utils';
 import User from '../user';
 import userAvatar from '@/assets/image/avatar.svg';
 
@@ -30,16 +31,18 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth <= 992 && window.innerWidth >= 768) {
-        this.isCollapsed = true;
-        EventBus.$emit('collapseChange', true);
-      }
-      if (window.innerWidth >= 1200) {
-        this.isCollapsed = false;
-        EventBus.$emit('collapseChange', false);
-      }
-    });
+    window.addEventListener('resize', throttle(
+      () => {
+        if (window.innerWidth <= 992 && window.innerWidth >= 768) {
+          this.isCollapsed = true;
+          EventBus.$emit('collapseChange', true);
+        }
+        if (window.innerWidth >= 1200) {
+          this.isCollapsed = false;
+          EventBus.$emit('collapseChange', false);
+        }
+      },
+    ));
   },
 };
 </script>
